@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTaskForm from "../components/AddTaskForm";
 import FilterBar from "../components/FilterBar";
 import SearchBar from "../components/SearchBar";
 import TaskList from "../components/TaskList";
 
 function HomePage() {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(() => {
+        const savedTasks = localStorage.getItem("tasks");
+
+        if(savedTasks) {
+            return JSON.parse(savedTasks);
+        }
+        return [];
+    });
     const [filter, setFilter] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
 
     function addTask(taskData) {
         const newTask = {
             id: Date.now(),
-            text: taskData.category,
+            text: taskData.text,
+            category: taskData.category,
             completed: false,
         };
 

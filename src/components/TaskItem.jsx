@@ -1,16 +1,21 @@
 function TaskItem({task, onToggle, onDelete}) {
     return (
         <div>
-            <span>{task.text}</span>
-            <button onClick={() =>
-                onToggle(task.id)}>
-                    {task.completed? "Undo" : "Completed"}
-            </button>
+            <input type="checkbox"
+            checked={task.completed} 
+            onChange={() =>
+                onToggle(task.id)} />
 
-            <button onClick={() =>
-                onDelete(task.id)}>
+                <span>
+                    {task.text}
+                </span>
+                <span>
+                    {task.category}
+                </span>
+
+                <button onClick={() => onDelete(task.id)}>
                     Delete
-            </button>
+                </button>
         </div>
     );
 }
