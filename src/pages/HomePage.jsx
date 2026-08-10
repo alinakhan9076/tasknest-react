@@ -16,6 +16,23 @@ function HomePage() {
     const [filter, setFilter] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
 
+    const filteredTasks = tasks.filter((task) => {
+        if (filter === "active" && 
+            task.completed) {
+                return false;
+        }
+        if (filter === "completed" && 
+            !task.completed) {
+                return false;
+            }
+            if (
+                searchQuery && !task.text.toLowerCase().includes(searchQuery.toLowerCase())
+            ) {
+                return false;
+            }
+        return true;
+    });
+
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(tasks));
     }, [tasks]);
@@ -38,7 +55,7 @@ function HomePage() {
         setTasks((currentTasks) => 
         currentTasks.map((task) => 
         task.id === id
-    ? { ...task, completed: ! task.completed}
+    ? { ...task, completed: !task.completed}
           : task
         )
     );
@@ -62,7 +79,7 @@ function HomePage() {
             <SearchBar searchQuery={searchQuery}
             onSearchChange={setSearchQuery} />
 
-            <TaskList tasks={tasks}
+            <TaskList tasks={filteredTasks}
             onToggle={toggleTask}
             onDelete={deleteTask} />
 
