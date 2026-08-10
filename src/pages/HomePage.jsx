@@ -57,8 +57,10 @@ function HomePage({ tasks, setTasks }) {
     }
     
     return(
-        <div>
-            <h1>TaskNest</h1>
+        <div className="min-h-screen bg-slate-100 px-4 py-8">
+            <div className="mx-auto max-w-2xl rounded-2xl bg-white p-6 shadow-xl">
+                <h1 className="mb-6 text-3xl font-bold text-slate-800">
+                    TaskNest</h1>
             <AddTaskForm onAdd={addTask}/>
 
             <FilterBar filter={filter}
@@ -70,6 +72,8 @@ function HomePage({ tasks, setTasks }) {
             <TaskList tasks={filteredTasks}
             onToggle={toggleTask}
             onDelete={deleteTask} />
+
+            </div>
 
         </div>
     );

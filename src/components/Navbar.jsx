@@ -1,12 +1,25 @@
 import { Link } from "react-router-dom";
 function Navbar({ title }) {
     return(
-        <nav>
-            {title}
+        <nav className="mb-6 rounded-xl bg-white px-6 py-4 shadow-sm">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+            <h1 className="text-2xl font-bold text-slate-800">
+                {title}
+                </h1>
 
-            <Link to="/">Home</Link>
-            <Link to="/stats">Stats</Link>
-            <Link to="/settings">Settings</Link>
+                <div className="flex flex-wrap gap-2">
+
+            <Link to="/"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-700
+            transition hover:bg-slate-100">Home</Link>
+            <Link to="/stats"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-700
+            transition hover:bg-slate-100">Stats</Link>
+            <Link to="/settings"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-700
+            transition hover:bg-slate-100">Settings</Link>
+            </div>
+            </div>
         </nav>
     );
 }

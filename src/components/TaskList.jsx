@@ -2,7 +2,7 @@ import TaskItem from "./TaskItem";
 
 function TaskList({ tasks, onToggle, onDelete}) {
     return(
-        <div>
+        <div className="space-y-3">
             {tasks.map((task) => (
                 <TaskItem 
                 key={task.id}

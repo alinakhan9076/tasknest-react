@@ -21,8 +21,10 @@ function AddTaskForm({ onAdd }) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" 
+        <form className="mb-6 flex gap-3" onSubmit={handleSubmit}>
+            <input className="flex-1 rounded-lg border border-slate-300 px-4 py-3
+            outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+            type="text" 
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Enter a task"
@@ -35,7 +37,9 @@ function AddTaskForm({ onAdd }) {
                 <option value="Personal">Personal</option>
             </select>
 
-            <button type="submit">
+            <button className="rounded-lg bg-blue-600 px-5 py-3 font-medium text-white
+            transition hover:bg-blue-700"
+             type="submit">
                 Add Task
             </button>
         </form>
