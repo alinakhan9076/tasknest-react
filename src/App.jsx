@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar"
 import HomePage from "./pages/HomePage";
 import StatsPage from "./pages/StatsPage";
+import SettingsPage from "./pages/SettingsPage";
+
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
 function App(){
   const [tasks, setTasks] = useState(() => {
@@ -18,15 +25,30 @@ function App(){
   }, [tasks]);
 
   return (
-    <>
+  
+    <BrowserRouter>
 
     <Navbar title="TaskNest" />
 
-    <HomePage tasks={tasks}
-    setTasks={setTasks} />
+    <Routes>
 
-    <StatsPage tasks={tasks} />
-    </>
+      <Route path="/"
+      element={
+        <HomePage tasks={tasks}
+    setTasks={setTasks} />
+      } />
+
+    <Route path="/stats"
+    element={<StatsPage tasks={tasks} />
+    } />
+
+    <Route path="/settings"
+    element={<SettingsPage />
+    } />
+    
+      </Routes>
+
+    </BrowserRouter>
   );
 }
  
