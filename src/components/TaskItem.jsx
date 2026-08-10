@@ -9,7 +9,7 @@ function TaskItem({task, onToggle, onDelete}) {
 
             <div className="flex min-w-0 flex-1 items-center gap-3">
 
-                <span className={`break-words text-base ${
+                <span className={`break-word text-base ${
                     task.completed ? "text-slate-400 line-through" :
                     "text-slate-700"
                 }`}>
