@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar"
 import HomePage from "./pages/HomePage";
 import StatsPage from "./pages/StatsPage";
 import SettingsPage from "./pages/SettingsPage";
+import api from "./api/api";
 
 import {
   BrowserRouter,
@@ -11,18 +12,23 @@ import {
 } from "react-router-dom";
 
 function App(){
-  const [tasks, setTasks] = useState(() => {
-    const savedTasks = localStorage.getItem("tasks");
-
-    if (savedTasks) {
-      return JSON.parse(savedTasks);
-    }
-    return [];
-  });
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
+    async function getTasks() {
+      try {
+        const response = await api.get("/tasks");
+        setTasks(response.data);
+      } catch {
+        setError("Failed to load tasks");
+      } finally {
+        setLoading(false);
+      }
+    }
+    getTasks();
+  }, []);
 
   return (
   
@@ -35,7 +41,9 @@ function App(){
       <Route path="/"
       element={
         <HomePage tasks={tasks}
-    setTasks={setTasks} />
+    setTasks={setTasks} 
+    loading={loading}
+    error={error}/>
       } />
 
     <Route path="/stats"

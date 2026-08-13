@@ -3,14 +3,14 @@ function TaskItem({task, onToggle, onDelete}) {
         <div className="mb-3 flex items-center gap-3 rounded-xl bg-white p-4 shadow-sm">
             <input className="h-5 w-5 cursor-pointer"
             type="checkbox"
-            checked={task.completed} 
+            checked={task.done} 
             onChange={() =>
                 onToggle(task.id)} />
 
             <div className="flex min-w-0 flex-1 items-center gap-3">
 
-                <span className={`break-word text-base ${
-                    task.completed ? "text-slate-400 line-through" :
+                <span className={`wrap-break-word text-base ${
+                    task.done ? "text-slate-400 line-through" :
                     "text-slate-700"
                 }`}>
                     {task.text}

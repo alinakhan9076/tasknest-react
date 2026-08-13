@@ -3,18 +3,19 @@ import AddTaskForm from "../components/AddTaskForm";
 import FilterBar from "../components/FilterBar";
 import SearchBar from "../components/SearchBar";
 import TaskList from "../components/TaskList";
+import api from "../api/api";
 
-function HomePage({ tasks, setTasks }) {
+function HomePage({ tasks, setTasks, loading, error }) {
     const [filter, setFilter] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredTasks = tasks.filter((task) => {
         if (filter === "active" && 
-            task.completed) {
+            task.done) {
                 return false;
         }
-        if (filter === "completed" && 
-            !task.completed) {
+        if (filter === "done" && 
+            !task.done) {
                 return false;
             }
             if (
@@ -25,35 +26,37 @@ function HomePage({ tasks, setTasks }) {
         return true;
     });
 
-    function addTask(taskData) {
-        const newTask = {
-            id: Date.now(),
-            text: taskData.text,
-            category: taskData.category,
-            completed: false,
-        };
+    async function addTask(taskData){
+        const response = await api.post("/tasks", taskData);
 
         setTasks((currentTasks) => [
-            ...currentTasks,
-            newTask,
+            ...currentTasks, response.data,
         ]);
     }
 
-    function toggleTask(id) {
-        setTasks((currentTasks) => 
-        currentTasks.map((task) => 
-        task.id === id
-    ? { ...task, completed: !task.completed}
-          : task
-        )
-    );
+    async function toggleTask(id) {
+        const task = tasks.find((task) => task.id === id);
+
+        const response = await api.put(`/tasks/${id}`, {
+            text: task.text,
+            category: task.category,
+            done: !task.done,
+
+        });
+
+        setTasks((currentTasks) => currentTasks.map((task) => 
+        task.id === id ? response.data : task
+    )
+);
     }
 
-    function deleteTask(id) {
-        setTasks((currentTasks) =>
-        currentTasks.filter((task) =>
-        task.id !== id)
-    );
+    async function deleteTask(id) {
+        await api.delete(`/tasks/${id}`) ;
+
+        setTasks((currentTasks) => currentTasks.filter((task) => 
+        task.id !== id
+    )
+);
     }
     
     return(
@@ -67,6 +70,18 @@ function HomePage({ tasks, setTasks }) {
 
             <SearchBar searchQuery={searchQuery}
             onSearchChange={setSearchQuery} />
+
+            {loading && (
+                <p className="text-center text-slate-500">
+                    Loading tasks...
+                </p>
+            )}
+
+            {error && (
+                <p className="mb-4 text-center text-red-500">
+                    {error}
+                </p>
+            )}
 
             <TaskList tasks={filteredTasks}
             onToggle={toggleTask}
