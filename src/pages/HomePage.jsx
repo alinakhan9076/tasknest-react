@@ -14,7 +14,7 @@ function HomePage({ tasks, setTasks, loading, error }) {
             task.done) {
                 return false;
         }
-        if (filter === "done" && 
+        if (filter === "completed" && 
             !task.done) {
                 return false;
             }
@@ -35,7 +35,7 @@ function HomePage({ tasks, setTasks, loading, error }) {
     }
 
     async function toggleTask(id) {
-        const task = tasks.find((task) => task.id === id);
+        const task = tasks.find((task) => task._id === id);
 
         const response = await api.put(`/tasks/${id}`, {
             text: task.text,
@@ -45,7 +45,7 @@ function HomePage({ tasks, setTasks, loading, error }) {
         });
 
         setTasks((currentTasks) => currentTasks.map((task) => 
-        task.id === id ? response.data : task
+        task._id === id ? response.data : task
     )
 );
     }
@@ -54,7 +54,7 @@ function HomePage({ tasks, setTasks, loading, error }) {
         await api.delete(`/tasks/${id}`) ;
 
         setTasks((currentTasks) => currentTasks.filter((task) => 
-        task.id !== id
+        task._id !== id
     )
 );
     }

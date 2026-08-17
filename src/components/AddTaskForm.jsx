@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function AddTaskForm({ onAdd }) {
     const [text, setText] = useState("");
-    const [category, setCategory] = useState("Study")
+    const [category, setCategory] = useState("study")
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -17,7 +17,7 @@ function AddTaskForm({ onAdd }) {
         });
 
         setText("");
-        setCategory("Study");
+        setCategory("study");
     }
 
     return (
@@ -32,9 +32,9 @@ function AddTaskForm({ onAdd }) {
 
             <select value={category}
             onChange={(e) => setCategory(e.target.value)}>
-                <option value="Study">Study</option>
-                <option value="Work">Work</option>
-                <option value="Personal">Personal</option>
+                <option value="study">Study</option>
+                <option value="work">Work</option>
+                <option value="personal">Personal</option>
             </select>
 
             <button className="rounded-lg bg-blue-600 px-5 py-3 font-medium text-white
