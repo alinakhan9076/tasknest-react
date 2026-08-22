@@ -1,16 +1,110 @@
-# React + Vite
+# TaskNest
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TaskNest is a full-stack task management application built with React and Node.js.
 
-Currently, two official plugins are available:
+Users can register and log in securely, create personal tasks, update them, mark them as completed, delete them, and manage their tasks through a simple responsive interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- User registration
+- User login
+- Password hashing with bcryptjs
+- JWT-based authentication
+- Protected routes
+- User-specific tasks
+- Add tasks
+- Update tasks
+- Delete tasks
+- Mark tasks as completed
+- Filter tasks
+- Search tasks
+- Stats page
+- Settings page
+- Logout
+- REST API
+- MongoDB database
+- Responsive UI
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+### Frontend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- React Router
+- Tailwind CSS
+- Axios
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- bcryptjs
+- JSON Web Token (JWT)
+- CORS
+
+## Project Structure
+
+The project is divided into two separate repositories:
+
+### Frontend
+
+`tasknest-react`
+
+The frontend is built with React and Vite.
+
+### Backend
+
+`tasknest-api`
+
+The backend provides REST APIs for authentication and task management.
+
+## Authentication
+
+TaskNest uses JWT authentication.
+
+When a user registers or logs in successfully:
+
+1. The backend verifies the user's credentials.
+2. A JWT token is generated.
+3. The frontend stores the token in localStorage.
+4. The API wrapper sends the token using the Authorization header.
+5. Protected routes require a valid token.
+6. Tasks are associated with the logged-in user.
+
+## API
+
+The backend provides authentication, task management, and health check APIs.
+
+### Authentication
+
+POST /api/auth/register
+POST /api/auth/login
+
+### Tasks
+
+GET /api/tasks
+GET /api/tasks/:id
+POST /api/tasks
+PUT /api/tasks/:id
+DELETE /api/tasks/:id
+
+### Health Check
+
+GET /api/health
+
+### Deployment
+
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB Atlas
+
+## Live Demo
+
+### Frontend
+https://tasknest-react.vercel.app
+
+### Backend
+https://tasknest-api-ysgd.onrender.com
