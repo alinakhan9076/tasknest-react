@@ -20,7 +20,7 @@ function LoginPage() {
 
                 localStorage.setItem("token", response.data.token);
 
-                navigate("/");
+                window.location.href = "/";
             } catch (error) {
                 setError(
                     error.response?.data?.error || 
